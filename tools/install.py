@@ -153,7 +153,6 @@ def install_agent():
         ignore=shutil.ignore_patterns(
             "__pycache__",
             "*.pyc",
-            "autoflower.local.json",
         ),
         dirs_exist_ok=True,
     )

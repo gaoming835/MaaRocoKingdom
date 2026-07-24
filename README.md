@@ -21,16 +21,15 @@
 ## 登录功能配置
 
 “登录”任务通过 Maa OCR 判断当前画面是否存在“进入世界”，命中后使用 AutoFlower
-远程控制 API 移动鼠标并点击。首次使用前：
+远程控制 API 移动鼠标并点击。发布包已包含局域网使用的
+`agent/autoflower.local.json`。使用时：
 
-1. 将 `agent/autoflower.local.example.json` 复制为
-   `agent/autoflower.local.json`。
-2. 填入 AutoFlower 手机端显示的 `base_url` 和六位 `pin`。
-3. 确认 `window_title` 与游戏窗口标题一致；点击坐标会按游戏客户区自动换算。
+1. 确认配置中的 `base_url` 和六位 `pin` 与 AutoFlower 手机端一致。
+2. 确认 `window_title` 与游戏窗口标题一致；点击坐标会按游戏客户区自动换算。
    识别分辨率与 `interface.json` 的短边 720 配置保持一致。
 
-本地配置已加入 `.gitignore`，不会提交 PIN。也可通过环境变量
-`AUTOFLOWER_BASE_URL` 和 `AUTOFLOWER_PIN` 临时覆盖地址与 PIN。
+也可通过环境变量 `AUTOFLOWER_BASE_URL` 和 `AUTOFLOWER_PIN`
+临时覆盖发布包中的地址与 PIN。
 
 ## 一键选择当前筛选精灵
 

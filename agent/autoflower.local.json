@@ -1,0 +1,8 @@
+{
+    "base_url": "http://192.168.6.176:8765",
+    "pin": "067988",
+    "window_title": "洛克王国：世界",
+    "recognition_width": 1280,
+    "recognition_height": 720,
+    "poll_timeout": 15
+}
