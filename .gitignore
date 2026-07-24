@@ -1,6 +1,10 @@
 # docs
 docs/node_modules
 docs/.vuepress/.temp
+
+# Local AutoFlower credentials
+/agent/autoflower.local.json
+
 # Prerequisites
 *.d
 

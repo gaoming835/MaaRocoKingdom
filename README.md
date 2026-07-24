@@ -18,6 +18,32 @@
 
 请阅读[如何开发](./docs/zh_cn/develop/how_to_develop.md)
 
+## 登录功能配置
+
+“登录”任务通过 Maa OCR 判断当前画面是否存在“进入世界”，命中后使用 AutoFlower
+远程控制 API 移动鼠标并点击。首次使用前：
+
+1. 将 `agent/autoflower.local.example.json` 复制为
+   `agent/autoflower.local.json`。
+2. 填入 AutoFlower 手机端显示的 `base_url` 和六位 `pin`。
+3. 确认 `window_title` 与游戏窗口标题一致；点击坐标会按游戏客户区自动换算。
+   识别分辨率与 `interface.json` 的短边 720 配置保持一致。
+
+本地配置已加入 `.gitignore`，不会提交 PIN。也可通过环境变量
+`AUTOFLOWER_BASE_URL` 和 `AUTOFLOWER_PIN` 临时覆盖地址与 PIN。
+
+## 一键选择当前筛选精灵
+
+1. 在游戏精灵盒子中设置筛选条件，并停留在显示
+   `筛选中 当前页/总页数` 的结果页。
+2. 在 Maa 中运行“一键选择”任务。
+3. 任务会清空已有勾选、进入放生多选状态，从第一页开始逐格选择，
+   并通过页码 OCR 自动翻到末页。
+
+Maa 仅使用 FramePool 截图和 OCR。进入多选、选择精灵和翻页等所有点击
+都固定通过 AutoFlower HID 执行，不会回退到 Win32 输入。任务只负责选择，
+不会点击“放生”确认按钮。
+
 ## 生态共建
 
 MAA 正计划建设为一类项目，而非舟的单一软件。

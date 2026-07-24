@@ -1,0 +1,8 @@
+{
+    "base_url": "http://<手机显示的IP>:8765",
+    "pin": "<手机显示的六位PIN>",
+    "window_title": "洛克王国：世界",
+    "recognition_width": 1280,
+    "recognition_height": 720,
+    "poll_timeout": 15
+}

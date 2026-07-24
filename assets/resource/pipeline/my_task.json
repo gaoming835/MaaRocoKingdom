@@ -1,4 +1,65 @@
 {
+    "Login": {
+        "next": [
+            "Login.EnterWorld"
+        ],
+        "timeout": 10000
+    },
+    "Login.EnterWorld": {
+        "recognition": "OCR",
+        "roi": [
+            480,
+            460,
+            320,
+            160
+        ],
+        "expected": "^进入世界$",
+        "threshold": 0.5,
+        "action": "Custom",
+        "custom_action": "autoflower_click",
+        "custom_action_param": {
+            "config_path": "autoflower.local.json"
+        },
+        "target": true
+    },
+    "SelectFilteredSprites": {
+        "recognition": "OCR",
+        "roi": [
+            370,
+            570,
+            190,
+            70
+        ],
+        "expected": "筛选中\\s*\\d+\\s*/\\s*\\d+",
+        "threshold": 0.5,
+        "timeout": 3600000,
+        "action": "Custom",
+        "custom_action": "select_filtered_sprites",
+        "custom_action_param": {
+            "config_path": "autoflower.local.json",
+            "page_settle_seconds": 0.5
+        }
+    },
+    "SelectFilteredSprites.PageIndicator": {
+        "recognition": "OCR",
+        "roi": [
+            370,
+            570,
+            190,
+            70
+        ],
+        "threshold": 0.1
+    },
+    "SelectFilteredSprites.SelectedIndicator": {
+        "recognition": "OCR",
+        "roi": [
+            650,
+            550,
+            130,
+            50
+        ],
+        "threshold": 0.1
+    },
     "MyTask1": {},
     "MyTask2": {},
     "MyTask3": {},
