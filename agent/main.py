@@ -1,7 +1,8 @@
 import sys
+from pathlib import Path
 
 from maa.agent.agent_server import AgentServer
-from maa.toolkit import Toolkit
+from maa.tasker import Tasker
 
 import my_action
 import my_reco
@@ -10,7 +11,8 @@ import select_filtered_sprites
 
 
 def main():
-    Toolkit.init_option("./")
+    project_root = Path(__file__).resolve().parent.parent
+    Tasker.set_log_dir(str(project_root / "debug"))
 
     if len(sys.argv) < 2:
         print("Usage: python main.py <socket_id>")

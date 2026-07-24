@@ -117,6 +117,19 @@ def install_resource():
         interface = jsonc.load(f)
 
     interface["version"] = version
+    # 源码调试时 interface.json 位于 assets；安装后它位于 install，
+    # 因此 Agent 相对路径需要从 ../agent 改回同目录下的 ./agent。
+    agent_configs = interface.get("agent", [])
+    if isinstance(agent_configs, dict):
+        agent_configs = [agent_configs]
+    for agent_config in agent_configs:
+        child_args = agent_config.get("child_args", [])
+        agent_config["child_args"] = [
+            arg.replace("../agent/", "./agent/", 1)
+            if arg.startswith("../agent/")
+            else arg
+            for arg in child_args
+        ]
 
     with open(install_path / "interface.json", "w", encoding="utf-8") as f:
         jsonc.dump(interface, f, ensure_ascii=False, indent=4)
@@ -137,6 +150,11 @@ def install_agent():
     shutil.copytree(
         working_dir / "agent",
         install_path / "agent",
+        ignore=shutil.ignore_patterns(
+            "__pycache__",
+            "*.pyc",
+            "autoflower.local.json",
+        ),
         dirs_exist_ok=True,
     )
 
