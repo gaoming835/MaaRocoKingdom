@@ -40,16 +40,23 @@ class SelectionLayout:
     right_page_box: tuple[int, int, int, int] = (538, 586, 40, 40)
 
     def slot_boxes(self) -> list[tuple[int, int, int, int]]:
-        return [
-            (
-                self.first_slot_x + column * self.column_step,
-                self.first_slot_y + row * self.row_step,
-                1,
-                1,
+        boxes: list[tuple[int, int, int, int]] = []
+        for row in range(self.rows):
+            columns = (
+                range(self.columns)
+                if row % 2 == 0
+                else range(self.columns - 1, -1, -1)
             )
-            for row in range(self.rows)
-            for column in range(self.columns)
-        ]
+            boxes.extend(
+                (
+                    self.first_slot_x + column * self.column_step,
+                    self.first_slot_y + row * self.row_step,
+                    1,
+                    1,
+                )
+                for column in columns
+            )
+        return boxes
 
 
 def parse_page_indicator(texts: list[str]) -> tuple[int, int] | None:

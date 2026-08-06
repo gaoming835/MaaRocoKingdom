@@ -60,6 +60,25 @@
         ],
         "threshold": 0.1
     },
+    "AutoAimThrow": {
+        "recognition": "DirectHit",
+        "timeout": 86400000,
+        "action": "Custom",
+        "custom_action": "auto_aim_throw",
+        "custom_action_param": {
+            "config_path": "auto_aim.json"
+        }
+    },
+    "AutoAimThrow.BallCount": {
+        "recognition": "OCR",
+        "roi": [
+            0,
+            0,
+            180,
+            100
+        ],
+        "threshold": 0.1
+    },
     "MyTask1": {},
     "MyTask2": {},
     "MyTask3": {},

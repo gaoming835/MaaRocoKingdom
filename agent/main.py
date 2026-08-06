@@ -1,5 +1,11 @@
+import os
 import sys
 from pathlib import Path
+
+# The agent resource is a remote proxy and cannot change inference options.
+# Mark this process so custom actions can distinguish that case from local
+# unit-test resources; the host must configure DirectML before binding it.
+os.environ["MAA_AGENT_SERVER_PROCESS"] = "1"
 
 from maa.agent.agent_server import AgentServer
 from maa.tasker import Tasker
@@ -8,6 +14,7 @@ import my_action
 import my_reco
 import login
 import select_filtered_sprites
+import auto_aim_throw
 
 
 def main():

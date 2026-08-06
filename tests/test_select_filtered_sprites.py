@@ -8,7 +8,11 @@ from pathlib import Path
 AGENT_DIR = Path(__file__).resolve().parents[1] / "agent"
 sys.path.insert(0, str(AGENT_DIR))
 
-from autoflower_client import AutoFlowerError  # noqa: E402
+from autoflower_client import (  # noqa: E402
+    AutoFlowerClient,
+    AutoFlowerConfig,
+    AutoFlowerError,
+)
 from select_filtered_sprites import (  # noqa: E402
     SelectionLayout,
     parse_page_indicator,
@@ -47,6 +51,9 @@ class SelectFilteredSpritesTests(unittest.TestCase):
         boxes = SelectionLayout().slot_boxes()
         self.assertEqual(len(boxes), 30)
         self.assertEqual(boxes[0], (244, 164, 1, 1))
+        self.assertEqual(boxes[5], (669, 164, 1, 1))
+        self.assertEqual(boxes[6], (669, 248, 1, 1))
+        self.assertEqual(boxes[11], (244, 248, 1, 1))
         self.assertEqual(boxes[-1], (669, 500, 1, 1))
 
     def test_selects_all_pages_from_middle_page(self) -> None:
@@ -91,6 +98,26 @@ class SelectFilteredSpritesTests(unittest.TestCase):
 
         with self.assertRaisesRegex(AutoFlowerError, "自动翻页失败"):
             select_filtered_pages(clicker, lambda: next(readings))
+
+    def test_builds_one_serpentine_page_script(self) -> None:
+        config = AutoFlowerConfig(
+            base_url="http://127.0.0.1:8765",
+            pin="123456",
+            script_move_step=10,
+            script_move_duration_ms=10,
+        )
+        client = AutoFlowerClient(config)
+        boxes = SelectionLayout().slot_boxes()
+        targets = [(box[0], box[1]) for box in boxes]
+
+        commands = client._build_click_script(targets).splitlines()
+
+        self.assertEqual(commands.count("{CLICK LEFT}"), 30)
+        self.assertEqual(len(commands), 291)
+        self.assertEqual(commands[1], "{MOVE 10 0 10}")
+        self.assertEqual(commands[9], "{MOVE 5 0 10}")
+        self.assertEqual(commands[11], "{MOVE 10 0 10}")
+        self.assertNotIn("{MOVE -10 10 10}", commands)
 
 
 if __name__ == "__main__":

@@ -4,5 +4,9 @@
     "window_title": "洛克王国：世界",
     "recognition_width": 1280,
     "recognition_height": 720,
-    "poll_timeout": 15
+    "poll_timeout": 15,
+    "poll_interval": 0.2,
+    "move_duration_ms": 100,
+    "script_move_step": 10,
+    "script_move_duration_ms": 10
 }
